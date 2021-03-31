@@ -1,18 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use App\Validation\LoginValidation;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class LoginController extends AbstractController
 {
+    /**
+     * @param LoginValidation $loginValidation
+     * @return JsonResponse
+     */
     #[Route('/login', name: 'login')]
-    public function index(): Response
+    public function index(LoginValidation $loginValidation): JsonResponse
     {
-        return $this->render('login/index.html.twig', [
-            'controller_name' => 'LoginController',
+        $loginValidation->handle();
+
+        return $this->json([
+            'status' => 200
         ]);
     }
 }
