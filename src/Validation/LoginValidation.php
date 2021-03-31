@@ -26,7 +26,7 @@ class LoginValidation extends ValidationManager
      */
     private function emailValidation(array $request): bool
     {
-        $validation = $this->validation()->validate($request['email'] ?? null,new Email());
+        $validation = $this->validation()->validate($request['email'] ?? null,[new Email(),new NotBlank()]);
 
         if (0 !== count($validation)) {
             // there are errors, now you can show them

@@ -15,7 +15,7 @@ class LoginController extends AbstractController
      * @param LoginValidation $loginValidation
      * @return JsonResponse
      */
-    #[Route('/login', name: 'login')]
+    #[Route('/login', name: 'login',methods: ['Post'])]
     public function index(LoginValidation $loginValidation): JsonResponse
     {
         $loginValidation->handle();
