@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Repository\Interfaces\UserRepositoryInterface;
 use App\Service\Output;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,13 +15,13 @@ class UserController extends AbstractController
     /**
      * get authenticate user
      *
-     * @param UserRepositoryInterface $userRepository
+     * @param UserRepositoryInterface $user
      * @return Response
      */
     #[Route('/user', name: 'user',methods: ['Get'])]
-    public function index(): Response
+    public function index(UserRepositoryInterface $user): Response
     {
-        return $this->json(Output::ok([]));
+        return $this->json(Output::ok($user->get()));
     }
 
     /**
