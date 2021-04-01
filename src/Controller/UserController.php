@@ -4,24 +4,26 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Repository\Interfaces\UserRepositoryInterface;
 use App\Service\Output;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserController extends AbstractController
 {
     /**
      * get authenticate user
      *
-     * @param UserRepositoryInterface $user
+     * @param UserInterface $user
      * @return Response
      */
     #[Route('/user', name: 'user',methods: ['Get'])]
-    public function index(UserRepositoryInterface $user): Response
+    public function index(UserInterface $user): Response
     {
-        return $this->json(Output::ok($user->get()));
+        $serializer = $this->get('serializer');
+        $auth = json_decode($serializer->serialize($user,'json'));
+        return $this->json(Output::ok($auth));
     }
 
     /**

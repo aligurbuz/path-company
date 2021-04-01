@@ -25,6 +25,10 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
+     * @param UserInterface $user
+     * @param string $newEncodedPassword
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
@@ -43,5 +47,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function get() : array
     {
         return $this->getEntityManager()->getRepository(User::class)->findAll();
+    }
+
+    /**
+     * @return array
+     */
+    public function authenticate() : array
+    {
+        return $this->getEntityManager()->getRepository(User::class)->findBy(['id' => 1]);
     }
 }

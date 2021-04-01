@@ -11,4 +11,10 @@ interface UserRepositoryInterface
      * @see UserRepository::get()
      */
     public function get() : array;
+
+    /**
+     * @return array
+     * @see UserRepository::authenticate()
+     */
+    public function authenticate() : array;
 }

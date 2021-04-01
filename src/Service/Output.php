@@ -18,7 +18,20 @@ class Output
         return [
             'status'      => true,
             'code'        => 200,
-            'resource'    => $data
+            'resource'    => static::removeSpecificFields($data)
         ];
+    }
+
+    /**
+     * remove specific fields
+     *
+     * @param $data
+     * @return mixed
+     */
+    private static function removeSpecificFields(mixed $data): mixed
+    {
+        if(property_exists($data,'password')) unset($data->password);
+
+        return $data;
     }
 }
