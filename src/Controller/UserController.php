@@ -23,6 +23,7 @@ class UserController extends AbstractController
     {
         $serializer = $this->get('serializer');
         $auth = json_decode($serializer->serialize($user,'json'));
+
         return $this->json(Output::ok($auth));
     }
 
